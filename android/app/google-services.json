@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "85915741304",
+    "project_id": "business-cambodia-app",
+    "storage_bucket": "business-cambodia-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85915741304:android:ed35d17756e7e4a7a8518d",
+        "android_client_info": {
+          "package_name": "com.businesscambodia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85915741304-bt6jfkdsohierak6r90l92npslqfkt9d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.businesscambodia",
+            "certificate_hash": "01a54b7c1f1b07acc8e59504f3aeeafc95b5d836"
+          }
+        },
+        {
+          "client_id": "85915741304-n5d52ui3a31mjbbthj32cjea69b5i1re.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcKzTZkkIyOMnTS13coExa7Z82ueb5bTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85915741304-n5d52ui3a31mjbbthj32cjea69b5i1re.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

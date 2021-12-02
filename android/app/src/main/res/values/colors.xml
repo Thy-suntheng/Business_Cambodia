@@ -1,0 +1,7 @@
+<resources>
+    <color name="bootsplash_background">#ED1B24</color>
+     <color name="app_bg">#ed1b24</color>
+
+     <color name="alert_background">#ffffff</color>
+    <color name="alert_text">#000000</color>
+</resources>
