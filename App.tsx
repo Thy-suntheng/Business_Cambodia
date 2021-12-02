@@ -11,11 +11,22 @@ messaging().subscribeToTopic("BusinessCambodia")
   .then(() => {
   })
 const App = () => {
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
   const dispatch = useDispatch()
   const categories = useSelector((state: any) => state.categories)
   useEffect(() => {
     if (categories === null)
-      loadData(dispatch)
+      requestUserPermission(),
+        loadData(dispatch)
     else
       RNBootSplash.hide({ fade: true });
   }, [categories])

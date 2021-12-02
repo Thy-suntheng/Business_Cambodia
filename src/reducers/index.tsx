@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { Ads } from "./Ads";
 import { Category, CategoryTitle } from "./Category";
+import { DetailAds } from "./detailAds";
 import { Home } from "./Home";
 import { HomeAds } from "./HomeAds";
 
@@ -45,7 +46,8 @@ const rootReducers = combineReducers({
     category_title: CategoryTitle,
     categories: Category,
     ads: Ads,
-    pop_up_ads_home: HomeAds
+    pop_up_ads_home: HomeAds,
+    pop_up_detail_ads: DetailAds
 });
 
 export default rootReducers;

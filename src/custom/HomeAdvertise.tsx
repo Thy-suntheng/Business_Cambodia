@@ -1,6 +1,7 @@
 import { HStack } from 'native-base';
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useSelector } from 'react-redux';
@@ -10,7 +11,8 @@ import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
 const HomeAdvertise = (props: any) => {
     const [visible, setVisible] = useState(props.showModal)
     const [seconds, setSeconds] = useState<any>(3)
-    const addvertise = useSelector((state: any) => state.pop_up_ads_home)
+    const advertise = useSelector((state: any) => state.pop_up_ads_home)
+
     useEffect(() => {
         setTimeout(() => {
             setVisible(false)
@@ -47,40 +49,49 @@ const HomeAdvertise = (props: any) => {
                                 </TouchableOpacity>
                             </HStack>
                         </View>
-                        {addvertise !== null ? (
-                            <>
-                                {addvertise.map((item: any, index: any) => {
-                                    return (
-                                        <TouchableOpacity key={makeid()}
-                                            activeOpacity={0.8}
-                                            onPress={() => Linking.openURL(item.url)}
-                                        >
+                        {advertise.map((item: any) => {
+                            return (
+                                <TouchableOpacity key={makeid()}
+                                    activeOpacity={0.8}
+                                    onPress={() => Linking.openURL(item.url)}
+                                >
+                                    <Image
+                                        source={{
+                                            uri: item.image
+                                        }}
+                                        style={styles.mainImg}
+                                        resizeMethod='resize'
+                                        containerStyle={{
+                                            backgroundColor: '#f6f6f6'
+                                        }}
+                                        placeholderStyle={{
+                                            backgroundColor: "#f6f6f6"
+                                        }}
+                                        PlaceholderContent={
                                             <FastImage
-                                                style={[styles.img, {
+                                                style={[styles.mainImg, {
+                                                    height: 100,
+                                                    backgroundColor: "#f6f6f6"
                                                 }]}
-                                                source={{ uri: item.image }}
-                                                resizeMode='cover'
+                                                source={require('../images/no_image.png')}
+                                                resizeMode='contain'
                                             />
-
-                                        </TouchableOpacity>
-                                    )
-                                })}
-                            </>) : (
-                            <View style={{
-                                height: 200,
-                                width: '100%',
-                                backgroundColor: '#f8f8f8'
-                            }}>
-                            </View>
-                        )}
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )
+                        })}
                     </Animated.View>
                 </View>
             </Modal>
         )
     }
+
     return (
         <View>
-            {_renderModal()}
+            {advertise == null ? null :
+                advertise.length == 0 ? null :
+                    _renderModal()}
         </View>
     )
 }
@@ -88,6 +99,10 @@ const HomeAdvertise = (props: any) => {
 export default HomeAdvertise;
 
 const styles = StyleSheet.create({
+    mainImg: {
+        width: '100%',
+        height: width / 2
+    },
     container: {
         flex: 1,
         backgroundColor: COLOR_BACKGROUND

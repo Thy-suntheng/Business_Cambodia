@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, Image, Linking, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, Linking, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import style, { COLOR_BACKGROUND, MAIN_COLOR } from '../styles/style';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/core';
@@ -11,7 +11,7 @@ import AutoHeightWebView from 'react-native-autoheight-webview';
 import FastImage from 'react-native-fast-image';
 import moment from 'moment';
 import 'moment/min/locales';
-import { Loading, makeid } from '../function/PTFunction';
+import { FlatListScroll, Loading, makeid } from '../function/PTFunction';
 const { width } = Dimensions.get('window')
 const DetailScreen = (props: any) => {
     const navigate: any = useNavigation()
@@ -79,62 +79,84 @@ const DetailScreen = (props: any) => {
                 </View>
             </View>
             <>
-                {detail === null ? null : (
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={{ backgroundColor: '#fff' }}>
-                            <FastImage
-                                style={{ width: width, height: width / 1.9, }}
-                                source={{ uri: detail.data ? detail.data.image : null }}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                            <Text style={styles.title}>{detail.data ? detail.data.title : null}</Text>
-                            <Text style={styles.date}>{moment(detail.data.post_date).locale("km").format(`${`ថ្ងៃទី`} DD ${`ខែ`} MMMM ${`ឆ្នាំ`} YYYY`)}</Text>
-                            <View style={styles.buttonshare}>
-                                <TouchableOpacity
-                                    activeOpacity={0.8}
-                                    onPress={onShare}
-                                    style={styles.share}>
-                                    <Ionicons
-                                        name='ios-share-social'
-                                        size={25}
-                                        color='#fff'
-                                    />
-                                    <Text style={styles.text}>ចែករំលែក</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <HStack>
-                                <View style={{ flexDirection: 'row', marginLeft: 10, }}>
-                                    <Ionicons
-                                        name="ios-eye-sharp"
-                                        size={20}
-                                        color='#000'
-                                    />
-                                    <Text style={{ marginLeft: 5 }}>{detail.view}</Text>
+                {detail === null ?
+                    null
+                    : (
+                        <FlatListScroll showsVerticalScrollIndicator={false}>
+                            <View style={{ backgroundColor: '#fff' }}>
+                                <FastImage
+                                    style={{ width: width, height: width / 1.9, }}
+                                    source={{ uri: detail.data ? detail.data.image : null }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                                <Text style={styles.title}>{detail.data ? detail.data.title : null}</Text>
+                                <Text style={styles.date}>{moment(detail.data.post_date).locale("km").format(`${`ថ្ងៃទី`} DD ${`ខែ`} MMMM ${`ឆ្នាំ`} YYYY`)}</Text>
+                                <View style={styles.buttonshare}>
+                                    <TouchableOpacity
+                                        activeOpacity={0.8}
+                                        onPress={onShare}
+                                        style={styles.share}>
+                                        <Ionicons
+                                            name='ios-share-social'
+                                            size={25}
+                                            color='#fff'
+                                        />
+                                        <Text style={styles.text}>ចែករំលែក</Text>
+                                    </TouchableOpacity>
                                 </View>
-                            </HStack>
+                                <HStack>
+                                    <View style={{ flexDirection: 'row', marginLeft: 10, }}>
+                                        <Ionicons
+                                            name="ios-eye-sharp"
+                                            size={20}
+                                            color='#000'
+                                        />
+                                        <Text style={{ marginLeft: 5 }}>{detail.view}</Text>
+                                    </View>
+                                </HStack>
 
-                        </View>
-                        {detail.below_title_ads.map((item: any, index: any) => {
-                            return (
-                                <TouchableOpacity key={makeid()}
-                                    activeOpacity={0.8}
-                                    onPress={() => Linking.openURL(item.url)}
-                                >
-                                    <AutoHeightImage
-                                        style={{ marginBottom: 3 }}
-                                        width={width}
-                                        source={{ uri: item.image }}
-                                    />
-                                </TouchableOpacity>
-                            )
-                        })}
-                        <View style={styles.content}>
-                            <View style={styles.subcontent}>
-                                <AutoHeightWebView
-                                    scrollEnabled={false}
-                                    dataDetectorTypes="none"
-                                    style={{ width: Dimensions.get('window').width - 15, marginTop: 10, marginBottom: 10 }}
-                                    customStyle={`
+                            </View>
+                            {/* {detail.below_title_ads.map((item: any) => {
+                                return (
+                                    <TouchableOpacity key={makeid()}
+                                        activeOpacity={0.8}
+                                        onPress={() => Linking.openURL(item.url)}
+                                    >
+                                        <AutoHeightImage
+                                            style={{ marginBottom: 3 }}
+                                            width={width}
+                                            source={{ uri: item.image }}
+                                        />
+                                    </TouchableOpacity>
+                                )
+                            })} */}
+                            {detail == null ? null :
+                                detail.length == 0 ? null :
+                                    <>
+                                        {detail.below_title_ads.map((item: any) => {
+                                            return (
+                                                <TouchableOpacity key={makeid()}
+                                                    activeOpacity={0.8}
+                                                    onPress={() => Linking.openURL(item.url)}
+                                                >
+                                                    <AutoHeightImage
+                                                        style={{ marginBottom: 3 }}
+                                                        width={width}
+                                                        source={{ uri: item.image }}
+                                                    />
+                                                </TouchableOpacity>
+                                            )
+                                        })}
+                                    </>
+                            }
+
+                            <View style={styles.content}>
+                                <View style={styles.subcontent}>
+                                    <AutoHeightWebView
+                                        scrollEnabled={false}
+                                        dataDetectorTypes="none"
+                                        style={{ width: Dimensions.get('window').width - 15, marginTop: 10, marginBottom: 10 }}
+                                        customStyle={`
                         * {
                         font-family: 'Battambang' !important;
                         line-height:${2} !important;
@@ -153,30 +175,34 @@ const DetailScreen = (props: any) => {
                           padding-top: 12px;
                           }
                       `}
-                                    source={{
-                                        html: `<html><head><link href="https://fonts.googleapis.com/css?family=Battambang&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div><p>${sBody}</p></div></body></html>`
-                                    }}
-                                />
-
-                            </View>
-                        </View>
-                        {detail.below_content_ads.map((item: any, index: any) => {
-                            return (
-                                <TouchableOpacity
-                                    activeOpacity={0.8}
-                                    onPress={() => Linking.openURL(item.url)}
-                                >
-                                    <AutoHeightImage
-                                        style={[styles.contentadd, { marginBottom: detail.below_content_ads.length - 1 === index ? 10 : 2 }]}
-                                        width={width}
-                                        key={index}
-                                        source={{ uri: item.image }}
+                                        source={{
+                                            html: `<html><head><link href="https://fonts.googleapis.com/css?family=Battambang&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div><p>${sBody}</p></div></body></html>`
+                                        }}
                                     />
-                                </TouchableOpacity>
-                            )
-                        })}
-                    </ScrollView>
-                )}
+
+                                </View>
+                            </View>
+                            {detail == null ? null :
+                                detail.length == 0 ? null :
+                                    <>
+                                        {detail.below_content_ads.map((item: any) => {
+                                            return (
+                                                <TouchableOpacity key={makeid()}
+                                                    activeOpacity={0.8}
+                                                    onPress={() => Linking.openURL(item.url)}
+                                                >
+                                                    <AutoHeightImage
+                                                        style={{ marginBottom: 3 }}
+                                                        width={width}
+                                                        source={{ uri: item.image }}
+                                                    />
+                                                </TouchableOpacity>
+                                            )
+                                        })}
+                                    </>
+                            }
+                        </FlatListScroll>
+                    )}
                 {detail === null ? <Loading /> : (
                     <>
                         <TouchableOpacity
@@ -193,7 +219,6 @@ const DetailScreen = (props: any) => {
             </>
             <ModalAdvertise showModal={true} />
         </View>
-
     )
 }
 
@@ -281,9 +306,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    contentadd: {
-
-    }
 })
 
 

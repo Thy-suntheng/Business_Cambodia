@@ -1,4 +1,4 @@
-import { loadAds, loadPopUpHomeAds } from "../action/Ads";
+import { loadAds, loadPopUpHomeAds, loadPopUpDetailAds } from "../action/Ads";
 import { loadCategory } from "../action/Category";
 import { loadHome } from "../action/Home";
 import { fetchBasicApi } from "./PTFunction";
@@ -6,6 +6,9 @@ import { fetchBasicApi } from "./PTFunction";
 export async function loadData(dispatch) {
     fetchBasicApi('ads-popup-home?').then((ads) => {
         dispatch(loadPopUpHomeAds(ads.data));
+    })
+    fetchBasicApi('ads-popup-page?').then((adss) => {
+        dispatch(loadPopUpDetailAds(adss.data));
     })
     fetchBasicApi('ads-list-home?').then((ads) => {
         dispatch(loadAds(ads));

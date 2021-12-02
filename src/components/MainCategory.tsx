@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadCategoryTitle } from '../action/Category';
 import { deepLink, fetchBasicApi, FlatListVertical, Type } from '../function/PTFunction';
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
+import messaging from '@react-native-firebase/messaging';
 let page: any = 1;
 const MainCategory = (props: any) => {
     const { category } = props;
     const dispatch = useDispatch()
     const ads = useSelector((state: any) => state.ads)
+    const categories = useSelector((state: any) => state.categories)
     const [content, setContent] = useState(null)
     const navigate: any = useNavigation()
     const [hasScrolled, setHasScrolled] = useState(false);
@@ -24,12 +26,31 @@ const MainCategory = (props: any) => {
 
     useEffect(() => {
         page = 1;
+        // push notification on detail
+        if (categories) {
+            if (category.id === categories.data[0].id) {
+                onNavigate()
+            }
+        }
         const unsubscribe = navigate.addListener('focus', () => {
             dispatch(loadCategoryTitle(category.name))
         });
         getData();
         return unsubscribe;
     }, []);
+    const navigaion: any = useNavigation()
+    const onNavigate = () => {
+        messaging()
+            .getInitialNotification()
+            .then((notificationOpen: any) => {
+                if (notificationOpen !== null && notificationOpen !== undefined) {
+                    navigaion.navigate('DetailScreen', {
+                        id: notificationOpen.data.news_id
+                    })
+                }
+            })
+            .catch(() => { });
+    }
     const getData = async () => {
         return fetch('https://business-cambodia.com/api/blogs/' + category.id + `?page=${page}`)
             .then((response) => response.json())
@@ -196,7 +217,6 @@ const MainCategory = (props: any) => {
                             marginTop: 20, alignSelf: 'center'
                         }}
                     />
-
                 ) :
                     <FlatListVertical
                         data={content}
@@ -231,7 +251,6 @@ const styles = StyleSheet.create({
     img: {
         width: 160,
         height: 100,
-        // marginLeft: 10,
         marginRight: 10
     },
     img1: {

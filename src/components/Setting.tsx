@@ -1,14 +1,27 @@
 import { useNavigation } from '@react-navigation/core'
 import { HStack } from 'native-base'
 import React, { useState } from 'react'
-import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
+import { Linking, Platform, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { COLOR_BACKGROUND, MAIN_COLOR } from '../styles/style'
+import messaging from '@react-native-firebase/messaging';
 const Setting = () => {
     const navigate: any = useNavigation()
-    const [isEnabled, setIsEnabled] = useState(true);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+    async function toggleNotification() {
+        if (Platform.OS === 'ios') {
+            const authStatus = await messaging().hasPermission();
+            if (authStatus === messaging.AuthorizationStatus.NOT_DETERMINED) {
+                const authorizationStatus = await messaging().requestPermission();
+                if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+                    console.log('true');
+                }
+            } else {
+                Linking.openURL('app-settings://');
+            }
+        } else {
+            Linking.openSettings();
+        }
+    }
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -32,16 +45,14 @@ const Setting = () => {
             <View style={styles.setting}>
                 <Text style={styles.text}>Setting</Text>
             </View>
-            <HStack style={styles.setting1}>
-                <Text style={styles.text1}>Notification</Text>
-                <Switch
-                    trackColor={{ false: "#ccc", true: MAIN_COLOR }}
-                    thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                />
-            </HStack>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => toggleNotification()}
+            >
+                <HStack style={styles.setting1}>
+                    <Text style={styles.text1}>Notification</Text>
+                </HStack>
+            </TouchableOpacity>
         </View>
     )
 }

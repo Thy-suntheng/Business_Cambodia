@@ -6,7 +6,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style'
 import { HStack } from 'native-base'
 import FastImage from 'react-native-fast-image'
-import { fetchBasicApi, FlatListVertical } from '../function/PTFunction'
+import { fetchBasicApi, FlatListVertical, makeid } from '../function/PTFunction'
 import { Wander, Wave } from 'react-native-animated-spinkit'
 import { Image } from 'react-native-elements'
 let page: any = 1;
@@ -84,7 +84,7 @@ const Search = () => {
         return (
             <>
 
-                <TouchableOpacity key={index}
+                <TouchableOpacity key={makeid()}
                     activeOpacity={0.8}
                     onPress={() => {
                         navigate.navigate('DetailScreen', { id: item.id })

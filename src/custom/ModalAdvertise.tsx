@@ -1,22 +1,19 @@
 import { HStack } from 'native-base';
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Image, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Animated, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { useSelector } from 'react-redux';
 import { makeid } from '../function/PTFunction';
-import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
+import { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
 
 const ModalAdvertise = (props: any) => {
     const [visible, setVisible] = useState(props.showModal)
-    const scaleValue = useRef(new Animated.Value(0)).current;
-    const [seconds, setSeconds] = useState<any>(4)
-    const [addvertise, setAddvertise] = useState<any>(null)
-    useEffect(() => {
-        Animated.spring(scaleValue, {
-            toValue: 1,
-            useNativeDriver: true
-        }).start();
+    const [seconds, setSeconds] = useState<any>(3)
+    const advertise = useSelector((state: any) => state.pop_up_detail_ads)
 
+    useEffect(() => {
         setTimeout(() => {
             setVisible(false)
         }, 4000);
@@ -29,24 +26,12 @@ const ModalAdvertise = (props: any) => {
             null
         }
     });
-    useEffect(() => {
-        getData()
-    }, [])
-    const getData = async () => {
-        return fetch(`https://business-cambodia.com/api/ads-popup-page`)
-            .then((response) => response.json())
-            .then((json) => {
-                setAddvertise(json.data)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+
     const _renderModal = () => {
         return (
             <Modal transparent visible={visible}>
                 <View style={styles.modalbackground}>
-                    <Animated.View style={[styles.modalcontainer, { transform: [{ scale: scaleValue }] }]}>
+                    <Animated.View style={[styles.modalcontainer]}>
                         <View style={{ alignItems: 'center' }}>
                             <HStack style={styles.header}>
                                 <HStack>
@@ -64,41 +49,49 @@ const ModalAdvertise = (props: any) => {
                                 </TouchableOpacity>
                             </HStack>
                         </View>
-                        {addvertise !== null ? (
-                            <>
-                                {addvertise.map((item: any, index: any) => {
-                                    return (
-                                        <TouchableOpacity key={makeid()}
-                                            activeOpacity={0.8}
-                                            onPress={() => Linking.openURL(item.url)}
-                                        >
+                        {advertise.map((item: any) => {
+                            return (
+                                <TouchableOpacity key={makeid()}
+                                    activeOpacity={0.8}
+                                    onPress={() => Linking.openURL(item.url)}
+                                >
+                                    <Image
+                                        source={{
+                                            uri: item.image
+                                        }}
+                                        style={styles.mainImg}
+                                        resizeMethod='resize'
+                                        containerStyle={{
+                                            backgroundColor: '#f6f6f6'
+                                        }}
+                                        placeholderStyle={{
+                                            backgroundColor: "#f6f6f6"
+                                        }}
+                                        PlaceholderContent={
                                             <FastImage
-                                                style={[styles.img, {
+                                                style={[styles.mainImg, {
+                                                    height: 100,
+                                                    backgroundColor: "#f6f6f6"
                                                 }]}
-                                                source={{ uri: item.image }}
-                                                resizeMode='cover'
+                                                source={require('../images/no_image.png')}
+                                                resizeMode='contain'
                                             />
-
-                                        </TouchableOpacity>
-                                    )
-                                })}
-                            </>) : (
-                            <View style={{
-                                height: 200,
-                                width: '100%',
-                                backgroundColor: '#f8f8f8'
-                            }}>
-                            </View>
-
-                        )}
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )
+                        })}
                     </Animated.View>
                 </View>
             </Modal>
         )
     }
+
     return (
         <View>
-            {_renderModal()}
+            {advertise == null ? null :
+                advertise.length == 0 ? null :
+                    _renderModal()}
         </View>
     )
 }
@@ -106,6 +99,10 @@ const ModalAdvertise = (props: any) => {
 export default ModalAdvertise;
 
 const styles = StyleSheet.create({
+    mainImg: {
+        width: '100%',
+        height: width / 2
+    },
     container: {
         flex: 1,
         backgroundColor: COLOR_BACKGROUND
@@ -148,5 +145,6 @@ const styles = StyleSheet.create({
         marginLeft: 3
     }
 })
+
 
 

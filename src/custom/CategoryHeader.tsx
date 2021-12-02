@@ -24,7 +24,7 @@ const CategoryHeader = () => {
     function renderText() {
         return home &&
             <TextTicker
-                style={{ marginTop: 12, marginLeft: (width / 3.7) }}
+                style={{ marginTop: 12, marginLeft: (width / 4), width: width / 1.5 }}
                 duration={80000}
                 loop
                 bounce={true}
