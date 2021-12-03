@@ -56,12 +56,12 @@ const DetailScreen = (props: any) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={styles.customheader}>
+                <HStack style={styles.customheader}>
                     <TouchableOpacity
-                        activeOpacity={0.8}
                         onPress={() => {
                             navigate.goBack()
                         }}
+                        activeOpacity={0.8}
                     >
                         <View style={styles.back}>
                             <FontAwesome
@@ -72,11 +72,17 @@ const DetailScreen = (props: any) => {
                         </View>
                     </TouchableOpacity>
                     <Image
-                        style={styles.img}
+                        style={styles.logo}
                         source={require('../images/logo.png')}
                     />
-                    <Text></Text>
-                </View>
+                    <View>
+                        <Ionicons
+                            name='search-outline'
+                            size={30}
+                            color={MAIN_COLOR}
+                        />
+                    </View>
+                </HStack>
             </View>
             <>
                 {detail === null ?
@@ -108,28 +114,14 @@ const DetailScreen = (props: any) => {
                                     <View style={{ flexDirection: 'row', marginLeft: 10, }}>
                                         <Ionicons
                                             name="ios-eye-sharp"
-                                            size={20}
+                                            size={18}
                                             color='#000'
                                         />
-                                        <Text style={{ marginLeft: 5 }}>{detail.view}</Text>
+                                        <Text style={{ marginLeft: 5, fontSize: 14 }}>{detail.view}</Text>
                                     </View>
                                 </HStack>
 
                             </View>
-                            {/* {detail.below_title_ads.map((item: any) => {
-                                return (
-                                    <TouchableOpacity key={makeid()}
-                                        activeOpacity={0.8}
-                                        onPress={() => Linking.openURL(item.url)}
-                                    >
-                                        <AutoHeightImage
-                                            style={{ marginBottom: 3 }}
-                                            width={width}
-                                            source={{ uri: item.image }}
-                                        />
-                                    </TouchableOpacity>
-                                )
-                            })} */}
                             {detail == null ? null :
                                 detail.length == 0 ? null :
                                     <>
@@ -161,13 +153,13 @@ const DetailScreen = (props: any) => {
                         font-family: 'Battambang' !important;
                         line-height:${2} !important;
                         letter-spacing:${0.5}px !important;
-                        font-size:${15}px !important;
+                        font-size:${14}px !important;
                         margin-left: px;
                         margin-right: 2.5px;
                     }
                     li{
                         color:#000;
-                        font-size:${15}px;
+                        font-size:${14}px;
                     }
                           img {
                           width: 100%;
@@ -235,15 +227,19 @@ const styles = StyleSheet.create({
         backgroundColor: MAIN_COLOR,
     },
     customheader: {
-        justifyContent: 'space-between',
         alignItems: 'center',
-        flexDirection: 'row',
-        marginHorizontal: 5
+        justifyContent: 'space-between',
+        marginHorizontal: 12
     },
     img: {
         width: 60,
         height: 53,
         marginRight: 30
+    },
+    logo: {
+        width: 60,
+        height: 53,
+        marginRight: 9
     },
     back: {
         width: 40,

@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
         width: '100%',
         borderWidth: 0.5,
         borderColor: '#ddd',
-        height: 50,
+        height: 47,
         backgroundColor: COLOR_BACKGROUND,
         justifyContent: 'center'
     },
     categoryitem: {
-        fontSize: 18,
+        fontSize: 15,
         marginLeft: 15,
         ...style.p,
         color: '#555'

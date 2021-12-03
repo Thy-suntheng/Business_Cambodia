@@ -60,28 +60,28 @@ export default CategoryHeader
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 45,
         backgroundColor: COLOR_BACKGROUND,
         alignItems: 'center'
     },
     text: {
         color: MAIN_COLOR,
-        fontSize: 17,
+        fontSize: 15,
         marginHorizontal: 10,
         ...style.p
     },
     diamond: {
-        width: 28,
-        height: 28,
+        width: 26,
+        height: 26,
         backgroundColor: MAIN_COLOR,
         transform: [{ rotate: "45deg" }],
-        right: -14,
+        right: -13,
         top: 6,
         position: 'absolute'
     },
     box: {
-        height: 40,
-        minWidth: 80,
+        height: 38,
+        minWidth: 78,
         backgroundColor: MAIN_COLOR,
         justifyContent: 'center',
         flexDirection: 'row',

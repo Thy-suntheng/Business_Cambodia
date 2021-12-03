@@ -249,9 +249,9 @@ const styles = StyleSheet.create({
         height: width / 2
     },
     img: {
-        width: 160,
+        width: 150,
         height: 100,
-        marginRight: 10
+        marginRight: 5
     },
     img1: {
         width: 160,
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
         ...style.p
     },
     list: {
-        width: width - 15,
+        width: width - 10,
         padding: 5,
         borderWidth: 0.7,
         borderColor: '#ddd',
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginLeft: 5,
         ...style.pBold,
-        width: width / 1.9,
+        width: width / 2,
     }
 
 })

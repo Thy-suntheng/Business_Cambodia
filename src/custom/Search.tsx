@@ -3,6 +3,7 @@ import React, { createRef, useState } from 'react'
 import { RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import Feather from 'react-native-vector-icons/Feather'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style'
 import { HStack } from 'native-base'
 import FastImage from 'react-native-fast-image'
@@ -80,10 +81,9 @@ const Search = () => {
     React.useEffect(() => {
         inputRef.current?.focus()
     }, [])
-    const renderItem = ({ item, index }: any) => {
+    const renderItem = ({ item }: any) => {
         return (
             <>
-
                 <TouchableOpacity key={makeid()}
                     activeOpacity={0.8}
                     onPress={() => {
@@ -135,7 +135,7 @@ const Search = () => {
                     <Feather
                         style={{ marginRight: 10 }}
                         name='chevron-left'
-                        size={50}
+                        size={40}
                         color='#fff'
                     />
                 </TouchableOpacity>
@@ -144,14 +144,14 @@ const Search = () => {
                         style={{ marginLeft: 10 }}
                         name='search'
                         color='gray'
-                        size={25}
+                        size={20}
                     />
 
                     <TextInput
                         onChangeText={(text) => setSearchText(text)}
-                        style={{ flex: 1, color: '#000', fontSize: 16, marginLeft: 5, ...style.p }}
+                        style={styles.inputtext}
                         placeholder="ស្វែងរកព័ត៌មាន...!"
-                        placeholderTextColor={'#777'}
+                        placeholderTextColor={'#999'}
                         ref={inputRef}
                     >
                     </TextInput>
@@ -166,10 +166,15 @@ const Search = () => {
                     />
                     : search == 0 ? (
                         <View style={styles.content}>
-                            <Feather
+                            {/* <Feather
                                 name='folder'
                                 size={55}
                                 color='#999'
+                            /> */}
+                            <AntDesign
+                                name='folderopen'
+                                size={55}
+                                color='#C8C6C6'
                             />
                             <Text style={styles.text}>គ្មានទិន្នន័យ</Text>
                         </View>
@@ -227,25 +232,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: '#999',
-        ...style.p
-    },
-    mainImg: {
-        width: width - 10,
-        height: width / 2,
-        resizeMode: 'contain',
-        alignSelf: 'center'
-    },
-    title: {
-        fontSize: 18,
-        margin: 10,
-        ...style.pBold,
-
-    },
-    date: {
-        fontSize: 14,
-        color: '#555',
-        marginLeft: 10,
+        color: '#C8C6C6',
         ...style.p
     },
     list: {
@@ -274,6 +261,14 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         ...style.p
     },
+    inputtext: {
+        flex: 1,
+        color: '#000',
+        fontSize: 15,
+        padding: 6,
+        ...style.p,
+        marginLeft: 5
+    }
 
 })
 
