@@ -3,11 +3,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import TextTicker from 'react-native-text-ticker';
 import { useSelector } from 'react-redux'
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
-
+var MarqueeText = require("react-native-marquee").default
 const CategoryHeader = () => {
     const home = useSelector((state: any) => state.home)
     const category_title = useSelector((state: any) => state.category_title)
-
     const _renderText = () => {
         return (
             home.data_marquee.map((item: any, index: any) => {
@@ -24,16 +23,15 @@ const CategoryHeader = () => {
     function renderText() {
         return home &&
             <TextTicker
-                style={{ marginTop: 12, marginLeft: (width / 4), width: width / 1.5 }}
-                duration={80000}
+                style={{ marginTop: 12, marginLeft: (width / 2.5), width: width / 1.3 }}
+                duration={70000}
+                shouldAnimateTreshold={40}
+                bounce={false}
                 loop
-                bounce={true}
-                //repeatSpacer={50}
-                marqueeDelay={200}
+                marqueeDelay={100}
             >
                 {_renderText()}
             </TextTicker>
-
     }
     const RENDER_TEXT = useMemo(() => renderText(), [home])
     return (
@@ -60,28 +58,28 @@ export default CategoryHeader
 
 const styles = StyleSheet.create({
     container: {
-        height: 45,
+        height: 48,
         backgroundColor: COLOR_BACKGROUND,
         alignItems: 'center'
     },
     text: {
         color: MAIN_COLOR,
-        fontSize: 15,
+        fontSize: 16,
         marginHorizontal: 10,
         ...style.p
     },
     diamond: {
-        width: 26,
-        height: 26,
+        width: 28,
+        height: 28,
         backgroundColor: MAIN_COLOR,
         transform: [{ rotate: "45deg" }],
-        right: -13,
+        right: -14,
         top: 6,
         position: 'absolute'
     },
     box: {
-        height: 38,
-        minWidth: 78,
+        height: 40,
+        minWidth: 80,
         backgroundColor: MAIN_COLOR,
         justifyContent: 'center',
         flexDirection: 'row',

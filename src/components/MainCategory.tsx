@@ -249,9 +249,9 @@ const styles = StyleSheet.create({
         height: width / 2
     },
     img: {
-        width: 150,
-        height: 100,
-        marginRight: 5
+        width: 160,
+        height: 110,
+        marginRight: 10
     },
     img1: {
         width: 160,
@@ -259,18 +259,18 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     title: {
-        fontSize: 15,
+        fontSize: 17,
         margin: 10,
         ...style.pBold,
     },
     date: {
-        fontSize: 13,
+        fontSize: 14,
         color: '#555',
         marginLeft: 10,
         ...style.p
     },
     list: {
-        width: width - 10,
+        width: width - 15,
         padding: 5,
         borderWidth: 0.7,
         borderColor: '#ddd',
@@ -297,10 +297,8 @@ const styles = StyleSheet.create({
         height: 50,
     },
     mainTitle: {
-        fontSize: 18,
-        marginLeft: 5,
         ...style.pBold,
-        width: width / 2,
+        width: (width / 2) + 10,
     }
 
 })

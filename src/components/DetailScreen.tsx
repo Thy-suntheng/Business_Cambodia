@@ -17,6 +17,16 @@ const DetailScreen = (props: any) => {
     const navigate: any = useNavigation()
     const { id } = props.route.params;
     const [detail, setDetail] = useState<any>(null)
+    const [loading, setLoading] = useState(true)
+    const [isRenderFooter, setIsRenderFooter] = useState(false)
+
+    React.useEffect(() => {
+        if (!loading) {
+            setTimeout(() => {
+                setIsRenderFooter(true)
+            }, 100);
+        }
+    }, [loading])
     const onShare = async () => {
         try {
             const result = await Share.share({
@@ -110,14 +120,14 @@ const DetailScreen = (props: any) => {
                                         <Text style={styles.text}>ចែករំលែក</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <HStack>
+                                <HStack style={{ marginTop: -12 }}>
                                     <View style={{ flexDirection: 'row', marginLeft: 10, }}>
                                         <Ionicons
                                             name="ios-eye-sharp"
                                             size={18}
                                             color='#000'
                                         />
-                                        <Text style={{ marginLeft: 5, fontSize: 14 }}>{detail.view}</Text>
+                                        <Text style={{ marginLeft: 5, fontSize: 14, marginBottom: 20 }}>{detail.view}</Text>
                                     </View>
                                 </HStack>
 
@@ -132,7 +142,7 @@ const DetailScreen = (props: any) => {
                                                     onPress={() => Linking.openURL(item.url)}
                                                 >
                                                     <AutoHeightImage
-                                                        style={{ marginBottom: 3 }}
+                                                        style={{ marginBottom: 2 }}
                                                         width={width}
                                                         source={{ uri: item.image }}
                                                     />
@@ -144,34 +154,60 @@ const DetailScreen = (props: any) => {
 
                             <View style={styles.content}>
                                 <View style={styles.subcontent}>
+
                                     <AutoHeightWebView
-                                        scrollEnabled={false}
                                         dataDetectorTypes="none"
-                                        style={{ width: Dimensions.get('window').width - 15, marginTop: 10, marginBottom: 10 }}
+                                        scrollEnabled={false}
+                                        style={{ width: Dimensions.get('window').width }}
                                         customStyle={`
-                        * {
-                        font-family: 'Battambang' !important;
-                        line-height:${2} !important;
-                        letter-spacing:${0.5}px !important;
-                        font-size:${14}px !important;
-                        margin-left: px;
-                        margin-right: 2.5px;
-                    }
-                    li{
-                        color:#000;
-                        font-size:${14}px;
-                    }
-                          img {
-                          width: 100%;
-                          height: auto;
-                          padding-top: 12px;
-                          }
-                      `}
+                * {
+                    font-family: 'Battambang' !important;
+                    line-height:${2} !important;
+                    letter-spacing:${0.5}px !important;
+                    font-size:${15}px !important;
+                    margin-left: 1px;
+                    margin-right: 3px;
+                    margin-bottom:20px !important;
+                    margin-top:3px !important;
+                }
+                li{
+                    color:#2b2b2b;
+                    font-size:${15}px;
+                }
+            img{
+            width:calc(100%) !important;
+             margin-left: -3px !important;
+             margin-right: 0px !important;
+            margin-top:5px !important;
+            }
+            h1{
+                font-size:${15}px;
+                line-height: 35px;
+            }
+            iframe{
+                color:#79fa12;
+                font-size:30px;
+                width:calc(100%) !important;
+                height:${width / 1.9}px !important;
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+                marginBottom:10px
+            }
+                `}
+                                        files={[
+                                            {
+                                                href: "cssfileaddress",
+                                                type: "text/css",
+                                                rel: "stylesheet"
+                                            }
+                                        ]}
                                         source={{
                                             html: `<html><head><link href="https://fonts.googleapis.com/css?family=Battambang&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div><p>${sBody}</p></div></body></html>`
                                         }}
+                                        scalesPageToFit={true}
+                                        viewportContent={"width=device-width, initial-scale=1.0, user-scalable=no"}
+                                        onLoadEnd={() => setLoading(false)}
                                     />
-
                                 </View>
                             </View>
                             {detail == null ? null :
@@ -247,7 +283,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 15,
+        fontSize: 17,
         margin: 10,
         ...style.pBold,
     },
@@ -281,7 +317,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     subcontent: {
-        width: width - 20,
+        width: width - 10,
         backgroundColor: COLOR_BACKGROUND,
         alignSelf: 'center',
     },
@@ -300,7 +336,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 })
 

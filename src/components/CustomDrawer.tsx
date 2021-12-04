@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
         width: '100%',
         borderWidth: 0.5,
         borderColor: '#ddd',
-        height: 47,
+        height: 50,
         backgroundColor: COLOR_BACKGROUND,
         justifyContent: 'center'
     },
     categoryitem: {
-        fontSize: 15,
-        marginLeft: 15,
-        ...style.p,
+        fontSize: 17,
+        marginLeft: 20,
+        ...style.pBold,
         color: '#555'
     }
 })

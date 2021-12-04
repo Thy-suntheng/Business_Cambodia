@@ -13,6 +13,7 @@ const HeaderScreen = () => {
                 <TouchableOpacity
                     onPress={() => navigate.openDrawer()}
                     activeOpacity={0.8}
+                    style={{ width: 40, height: 35 }}
                 >
                     <Ionicons
                         name='menu'
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 60,
-        height: 53
+        height: 53,
+        marginRight: 8
     }
 })

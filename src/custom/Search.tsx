@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { createRef, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import Feather from 'react-native-vector-icons/Feather'
@@ -78,7 +78,7 @@ const Search = () => {
     };
 
     const inputRef = createRef<TextInput>()
-    React.useEffect(() => {
+    useEffect(() => {
         inputRef.current?.focus()
     }, [])
     const renderItem = ({ item }: any) => {
@@ -153,6 +153,7 @@ const Search = () => {
                         placeholder="ស្វែងរកព័ត៌មាន...!"
                         placeholderTextColor={'#999'}
                         ref={inputRef}
+                        autoFocus={true}
                     >
                     </TextInput>
                 </View>
