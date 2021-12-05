@@ -10,7 +10,7 @@ import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
 
 const HomeAdvertise = (props: any) => {
     const [visible, setVisible] = useState(props.showModal)
-    const [seconds, setSeconds] = useState<any>(3)
+    const [seconds, setSeconds] = useState<any>(4)
     const advertise = useSelector((state: any) => state.pop_up_ads_home)
 
     useEffect(() => {

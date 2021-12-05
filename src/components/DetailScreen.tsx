@@ -161,9 +161,9 @@ const DetailScreen = (props: any) => {
                                         style={{ width: Dimensions.get('window').width }}
                                         customStyle={`
                 * {
-                    font-family: 'Battambang' !important;
+                    font-family: 'Content' !important;
                     line-height:${2} !important;
-                    letter-spacing:${0.5}px !important;
+                    letter-spacing:${0.8}px !important;
                     font-size:${15}px !important;
                     margin-left: 1px;
                     margin-right: 3px;
@@ -182,7 +182,7 @@ const DetailScreen = (props: any) => {
             }
             h1{
                 font-size:${15}px;
-                line-height: 35px;
+                line-height: 40px;
             }
             iframe{
                 color:#79fa12;
@@ -202,7 +202,7 @@ const DetailScreen = (props: any) => {
                                             }
                                         ]}
                                         source={{
-                                            html: `<html><head><link href="https://fonts.googleapis.com/css?family=Battambang&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div><p>${sBody}</p></div></body></html>`
+                                            html: `<html><head><link href="https://fonts.googleapis.com/css?family=Content&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div><p>${sBody}</p></div></body></html>`
                                         }}
                                         scalesPageToFit={true}
                                         viewportContent={"width=device-width, initial-scale=1.0, user-scalable=no"}

@@ -19,9 +19,9 @@ const Search = () => {
     const [isMoreLoading, setIsMoreLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     const [searchText, setSearchText] = useState("")
-    React.useEffect(() => {
-        inputRef.current?.focus()
-    }, [])
+    // React.useEffect(() => {
+    //     inputRef.current?.focus()
+    // }, [])
     React.useEffect(() => {
         page = 1;
         getData(searchText);
@@ -77,10 +77,10 @@ const Search = () => {
         );
     };
 
-    const inputRef = createRef<TextInput>()
-    useEffect(() => {
-        inputRef.current?.focus()
-    }, [])
+    // const inputRef = createRef<TextInput>()
+    // useEffect(() => {
+    //     inputRef.current?.focus()
+    // }, [])
     const renderItem = ({ item }: any) => {
         return (
             <>
@@ -152,8 +152,9 @@ const Search = () => {
                         style={styles.inputtext}
                         placeholder="ស្វែងរកព័ត៌មាន...!"
                         placeholderTextColor={'#999'}
-                        ref={inputRef}
-                        autoFocus={true}
+                        defaultValue={searchText}
+                    // ref={inputRef}
+                    // autoFocus={true}
                     >
                     </TextInput>
                 </View>
@@ -167,11 +168,6 @@ const Search = () => {
                     />
                     : search == 0 ? (
                         <View style={styles.content}>
-                            {/* <Feather
-                                name='folder'
-                                size={55}
-                                color='#999'
-                            /> */}
                             <AntDesign
                                 name='folderopen'
                                 size={55}

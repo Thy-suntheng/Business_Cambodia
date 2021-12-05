@@ -7,6 +7,7 @@ import HomeAdvertise from './src/custom/HomeAdvertise';
 import { loadData } from './src/function/LoadData';
 import Route from './src/routes/Route';
 import messaging from '@react-native-firebase/messaging'
+import { COLOR_BACKGROUND } from './src/styles/style';
 messaging().subscribeToTopic("BusinessCambodia")
   .then(() => {
   })
@@ -44,6 +45,6 @@ export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: COLOR_BACKGROUND
   }
 })

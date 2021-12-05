@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core'
 import { HStack } from 'native-base'
 import React, { useState } from 'react'
-import { Linking, Platform, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
+import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { COLOR_BACKGROUND, MAIN_COLOR } from '../styles/style'
 import messaging from '@react-native-firebase/messaging';
@@ -42,15 +42,21 @@ const Setting = () => {
                     <Text style={styles.notification}>Notification</Text>
                 </HStack>
             </View>
-            <View style={styles.setting}>
+            {/* <View style={styles.setting}>
                 <Text style={styles.text}>Setting</Text>
-            </View>
+            </View> */}
             <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => toggleNotification()}
             >
                 <HStack style={styles.setting1}>
                     <Text style={styles.text1}>Notification</Text>
+                    <FontAwesome
+                        style={{ marginRight: 20 }}
+                        name='angle-right'
+                        color='#555'
+                        size={35}
+                    />
                 </HStack>
             </TouchableOpacity>
         </View>
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
         fontSize: 23,
         color: '#fff',
         fontWeight: '600',
-        marginLeft: 30
+        marginLeft: 5
     },
     customheader: {
         width: 180,
@@ -106,6 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
+        alignItems: 'center',
     },
     text1: {
         fontSize: 20,
