@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCategoryTitle } from '../action/Category';
-import { deepLink, fetchBasicApi, FlatListVertical, Type } from '../function/PTFunction';
+import { deepLink, fetchBasicApi, FlatListVertical, makeid, Type } from '../function/PTFunction';
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
 import messaging from '@react-native-firebase/messaging';
 let page: any = 1;
@@ -106,7 +106,7 @@ const MainCategory = (props: any) => {
             <>
                 {index === 0 ?
                     (
-                        <TouchableOpacity
+                        <TouchableOpacity key={makeid()}
                             style={{ backgroundColor: COLOR_BACKGROUND }}
                             onPress={() => {
                                 navigate.navigate('DetailScreen', { id: item.id })
@@ -141,7 +141,7 @@ const MainCategory = (props: any) => {
 
                         </TouchableOpacity>
                     ) :
-                    <TouchableOpacity key={index}
+                    <TouchableOpacity key={makeid()}
                         activeOpacity={0.8}
                         onPress={() => {
                             navigate.navigate('DetailScreen', { id: item.id })

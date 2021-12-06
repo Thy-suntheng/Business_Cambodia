@@ -105,6 +105,25 @@ const DetailScreen = (props: any) => {
                                     source={{ uri: detail.data ? detail.data.image : null }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
+                                {detail == null ? null :
+                                    detail.length == 0 ? null :
+                                        <>
+                                            {detail.below_title_ads.map((item: any) => {
+                                                return (
+                                                    <TouchableOpacity key={makeid()}
+                                                        activeOpacity={0.8}
+                                                        onPress={() => Linking.openURL(item.url)}
+                                                    >
+                                                        <AutoHeightImage
+                                                            style={{ marginBottom: 2 }}
+                                                            width={width}
+                                                            source={{ uri: item.image }}
+                                                        />
+                                                    </TouchableOpacity>
+                                                )
+                                            })}
+                                        </>
+                                }
                                 <Text style={styles.title}>{detail.data ? detail.data.title : null}</Text>
                                 <Text style={styles.date}>{moment(detail.data.post_date).locale("km").format(`${`ថ្ងៃទី`} DD ${`ខែ`} MMMM ${`ឆ្នាំ`} YYYY`)}</Text>
                                 <View style={styles.buttonshare}>
@@ -132,25 +151,7 @@ const DetailScreen = (props: any) => {
                                 </HStack>
 
                             </View>
-                            {detail == null ? null :
-                                detail.length == 0 ? null :
-                                    <>
-                                        {detail.below_title_ads.map((item: any) => {
-                                            return (
-                                                <TouchableOpacity key={makeid()}
-                                                    activeOpacity={0.8}
-                                                    onPress={() => Linking.openURL(item.url)}
-                                                >
-                                                    <AutoHeightImage
-                                                        style={{ marginBottom: 2 }}
-                                                        width={width}
-                                                        source={{ uri: item.image }}
-                                                    />
-                                                </TouchableOpacity>
-                                            )
-                                        })}
-                                    </>
-                            }
+
 
                             <View style={styles.content}>
                                 <View style={styles.subcontent}>
@@ -163,8 +164,8 @@ const DetailScreen = (props: any) => {
                 * {
                     font-family: 'Content' !important;
                     line-height:${2} !important;
-                    letter-spacing:${0.8}px !important;
-                    font-size:${15}px !important;
+                    letter-spacing:${0.9}px !important;
+                    font-size:${14}px !important;
                     margin-left: 1px;
                     margin-right: 3px;
                     margin-bottom:20px !important;
@@ -181,7 +182,7 @@ const DetailScreen = (props: any) => {
             margin-top:5px !important;
             }
             h1{
-                font-size:${15}px;
+                font-size:${14}px;
                 line-height: 40px;
             }
             iframe{
@@ -320,6 +321,8 @@ const styles = StyleSheet.create({
         width: width - 10,
         backgroundColor: COLOR_BACKGROUND,
         alignSelf: 'center',
+        marginTop: -20,
+        marginBottom: 10
     },
     banner: {
         resizeMode: 'contain',

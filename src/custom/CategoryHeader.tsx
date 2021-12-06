@@ -1,37 +1,23 @@
 import React, { useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import TextTicker from 'react-native-text-ticker';
 import { useSelector } from 'react-redux'
-import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
-var MarqueeText = require("react-native-marquee").default
+import style, { COLOR_BACKGROUND, MAIN_COLOR, } from '../styles/style';
+var AutoScrolling = require('react-native-auto-scrolling');
 const CategoryHeader = () => {
     const home = useSelector((state: any) => state.home)
     const category_title = useSelector((state: any) => state.category_title)
-    const _renderText = () => {
-        return (
-            home.data_marquee.map((item: any, index: any) => {
-                return (
-                    <Text
-                        key={index}
-                        style={styles.text}>
-                        {item.title}
-                    </Text>
-                )
-            })
-        )
-    }
+
     function renderText() {
+        var result = '';
+        if (home) {
+            home.data_marquee.map((item: any) => {
+                result += item.title + ' '
+            })
+        }
         return home &&
-            <TextTicker
-                style={{ marginTop: 12, marginLeft: (width / 2.5), width: width / 1.3 }}
-                duration={70000}
-                shouldAnimateTreshold={40}
-                bounce={false}
-                loop
-                marqueeDelay={100}
-            >
-                {_renderText()}
-            </TextTicker>
+            <AutoScrolling duration={70000}>
+                <Text style={{ marginTop: 12, ...style.p, fontSize: 16, color: MAIN_COLOR }}>{result}</Text>
+            </AutoScrolling>
     }
     const RENDER_TEXT = useMemo(() => renderText(), [home])
     return (
@@ -66,7 +52,7 @@ const styles = StyleSheet.create({
         color: MAIN_COLOR,
         fontSize: 16,
         marginHorizontal: 10,
-        ...style.p
+        ...style.p,
     },
     diamond: {
         width: 28,
@@ -89,7 +75,41 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 4
-    }
+    },
 })
 
 
+
+// import React from 'react'
+// import { Text, StyleSheet, View } from 'react-native'
+// import { useSelector } from 'react-redux';
+// import { COLOR_BACKGROUND } from '../styles/style';
+// var AutoScrolling = require('react-native-auto-scrolling');
+
+// const CategoryHeader = () => {
+//     const style = useSelector((state: any) => state.style);
+//     const home = useSelector((state: any) => state.home)
+//     var result = '';
+//     home.data_marquee.map((item: any, index: any) => {
+//         result += item.title + ' '
+//     })
+//     return (
+//         <View style={[styles.matSlide,]}>
+//             <AutoScrolling duration={70000}>
+//                 <Text style={[{ color: '#000', fontSize: 15 }]}>{result}</Text>
+//             </AutoScrolling>
+//         </View>
+//     )
+// }
+// export default React.memo(CategoryHeader);
+
+// const styles = StyleSheet.create({
+//     matSlide: {
+//         backgroundColor: COLOR_BACKGROUND,
+//         // paddingVertical: 10,
+//         justifyContent: 'center',
+//         // alignItems:'center',
+//         height: 45,
+//         marginTop: 5
+//     },
+// })

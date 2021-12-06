@@ -19,9 +19,7 @@ const Search = () => {
     const [isMoreLoading, setIsMoreLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     const [searchText, setSearchText] = useState("")
-    // React.useEffect(() => {
-    //     inputRef.current?.focus()
-    // }, [])
+
     React.useEffect(() => {
         page = 1;
         getData(searchText);
@@ -77,10 +75,6 @@ const Search = () => {
         );
     };
 
-    // const inputRef = createRef<TextInput>()
-    // useEffect(() => {
-    //     inputRef.current?.focus()
-    // }, [])
     const renderItem = ({ item }: any) => {
         return (
             <>
@@ -148,13 +142,12 @@ const Search = () => {
                     />
 
                     <TextInput
+                        autoFocus
                         onChangeText={(text) => setSearchText(text)}
                         style={styles.inputtext}
                         placeholder="ស្វែងរកព័ត៌មាន...!"
                         placeholderTextColor={'#999'}
-                        defaultValue={searchText}
-                    // ref={inputRef}
-                    // autoFocus={true}
+                        keyboardType='default'
                     >
                     </TextInput>
                 </View>

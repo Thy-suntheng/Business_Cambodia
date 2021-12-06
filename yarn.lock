@@ -7353,6 +7353,11 @@ react-native-auto-height-image@^3.2.4:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-auto-scrolling@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-auto-scrolling/-/react-native-auto-scrolling-3.0.2.tgz#9ac7175827c63bdda272c4bd652946ca7e3986fb"
+  integrity sha512-TBRWBrUsio79bi0DuYO6wyk4YMfaeJGT18gfYc2ngYqzzrlu20ZugoDBI6PyiRdg2WHgVgenNe/GPV/qDMf3cQ==
+
 react-native-autoheight-webview@^1.5.8:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/react-native-autoheight-webview/-/react-native-autoheight-webview-1.6.1.tgz#dc404f36577478e91fc83999203999e9c9ea5bd5"

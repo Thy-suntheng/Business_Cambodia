@@ -1,9 +1,8 @@
 import { DrawerActions, useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import style, { COLOR_BACKGROUND, MAIN_COLOR } from '../styles/style'
-const { width } = Dimensions.get('window')
 const CustomDrawer = () => {
     const categories = useSelector((state: any) => state.categories)
     const navigate: any = useNavigation()
@@ -36,7 +35,7 @@ const CustomDrawer = () => {
                     name: "ការកំណត់"
                 }] : null}
                 renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(index) => index.toString()}
             />
         </>
     )
@@ -66,8 +65,9 @@ const styles = StyleSheet.create({
     },
     categoryitem: {
         fontSize: 17,
-        marginLeft: 20,
+        marginLeft: 10,
         ...style.pBold,
-        color: '#555'
+        color: '#555',
+        padding: 10
     }
 })
