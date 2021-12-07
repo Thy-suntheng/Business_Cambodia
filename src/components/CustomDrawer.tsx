@@ -2,6 +2,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
+import { makeid } from '../function/PTFunction'
 import style, { COLOR_BACKGROUND, MAIN_COLOR } from '../styles/style'
 const CustomDrawer = () => {
     const categories = useSelector((state: any) => state.categories)
@@ -35,7 +36,7 @@ const CustomDrawer = () => {
                     name: "ការកំណត់"
                 }] : null}
                 renderItem={renderItem}
-                keyExtractor={(index) => index.toString()}
+                keyExtractor={(index) => makeid()}
             />
         </>
     )
@@ -71,3 +72,5 @@ const styles = StyleSheet.create({
         padding: 10
     }
 })
+
+

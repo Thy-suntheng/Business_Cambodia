@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { createRef, useEffect, useState } from 'react'
-import { RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
+import { Keyboard, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -120,19 +120,21 @@ const Search = () => {
     return (
         <>
             <View style={styles.header}>
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => {
-                        navigate.goBack()
-                    }}
-                >
-                    <Feather
-                        style={{ marginRight: 10 }}
-                        name='chevron-left'
-                        size={40}
-                        color='#fff'
-                    />
-                </TouchableOpacity>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => {
+                            navigate.goBack()
+                        }}
+                    >
+                        <Feather
+                            style={{ marginRight: 10 }}
+                            name='chevron-left'
+                            size={40}
+                            color='#fff'
+                        />
+                    </TouchableOpacity>
+                </TouchableWithoutFeedback>
                 <View style={styles.input}>
                     <Fontisto
                         style={{ marginLeft: 10 }}
@@ -140,53 +142,52 @@ const Search = () => {
                         color='gray'
                         size={20}
                     />
-
                     <TextInput
-                        autoFocus
                         onChangeText={(text) => setSearchText(text)}
                         style={styles.inputtext}
                         placeholder="ស្វែងរកព័ត៌មាន...!"
                         placeholderTextColor={'#999'}
-                        keyboardType='default'
                     >
                     </TextInput>
                 </View>
             </View>
-
-            <View style={styles.container}>
-                {isLoading ?
-                    <Wander size={40}
-                        color={MAIN_COLOR}
-                        style={{ marginVertical: 20 }}
-                    />
-                    : search == 0 ? (
-                        <View style={styles.content}>
-                            <AntDesign
-                                name='folderopen'
-                                size={55}
-                                color='#C8C6C6'
-                            />
-                            <Text style={styles.text}>គ្មានទិន្នន័យ</Text>
-                        </View>
-                    ) : (
-                        <FlatListVertical
-                            data={search}
-                            renderItem={renderItem}
-                            ListFooterComponent={
-                                <>{isMoreLoading && page !== 0 && renderFooter()}</>
-                            }
-                            refreshControl={
-                                <RefreshControl refreshing={isRefresh} onRefresh={onRefresh} />
-                            }
-                            onTouchMove={_onScroll}
-                            onEndReached={() => {
-                                if (!isMoreLoading) {
-                                    getMore();
-                                }
-                            }}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    {isLoading ?
+                        <Wander size={40}
+                            color={MAIN_COLOR}
+                            style={{ marginVertical: 20 }}
                         />
-                    )}
-            </View>
+                        : search == 0 ? (
+                            <View style={styles.content}>
+                                <AntDesign
+                                    name='folderopen'
+                                    size={55}
+                                    color='#C8C6C6'
+                                />
+                                <Text style={styles.text}>គ្មានទិន្នន័យ</Text>
+                            </View>
+                        ) : (
+                            <FlatListVertical
+                                data={search}
+                                renderItem={renderItem}
+                                ListFooterComponent={
+                                    <>{isMoreLoading && page !== 0 && renderFooter()}</>
+                                }
+                                refreshControl={
+                                    <RefreshControl refreshing={isRefresh} onRefresh={onRefresh} />
+                                }
+                                onTouchMove={_onScroll}
+                                onEndReached={() => {
+                                    if (!isMoreLoading) {
+                                        getMore();
+                                    }
+                                }}
+                            />
+                        )}
+                </View>
+            </TouchableWithoutFeedback>
+
         </>
     )
 }
