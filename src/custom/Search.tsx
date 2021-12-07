@@ -120,21 +120,20 @@ const Search = () => {
     return (
         <>
             <View style={styles.header}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={() => {
-                            navigate.goBack()
-                        }}
-                    >
-                        <Feather
-                            style={{ marginRight: 10 }}
-                            name='chevron-left'
-                            size={40}
-                            color='#fff'
-                        />
-                    </TouchableOpacity>
-                </TouchableWithoutFeedback>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                        navigate.goBack();
+                        Keyboard.dismiss();
+                    }}
+                >
+                    <Feather
+                        style={{ marginRight: 10 }}
+                        name='chevron-left'
+                        size={40}
+                        color='#fff'
+                    />
+                </TouchableOpacity>
                 <View style={styles.input}>
                     <Fontisto
                         style={{ marginLeft: 10 }}
