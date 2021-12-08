@@ -155,7 +155,6 @@ const DetailScreen = (props: any) => {
 
                             <View style={styles.content}>
                                 <View style={styles.subcontent}>
-
                                     <AutoHeightWebView
                                         dataDetectorTypes="none"
                                         scrollEnabled={false}

@@ -9,9 +9,10 @@ import HeaderScreen from './HeaderScreen';
 const BaseComponent = ({ children, title, data, loading }: any) => {
     const [isReady, setIsReady] = useState(false)
     React.useEffect(() => {
-        InteractionManager.runAfterInteractions(() => {
-            setIsReady(true)
-        });
+        // InteractionManager.runAfterInteractions(() => {
+        //     setIsReady(true)
+        // });
+        setIsReady(true)
     }, [])
     return (
         <KeyboardAvoidingView

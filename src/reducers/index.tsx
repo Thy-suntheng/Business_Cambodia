@@ -47,7 +47,8 @@ const rootReducers = combineReducers({
     categories: Category,
     ads: Ads,
     pop_up_ads_home: HomeAds,
-    pop_up_detail_ads: DetailAds
+    pop_up_detail_ads: DetailAds,
+    no_connection: noConnection
 });
 
 export default rootReducers;

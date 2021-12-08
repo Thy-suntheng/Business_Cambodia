@@ -9,12 +9,13 @@ import FastImage from 'react-native-fast-image';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCategoryTitle } from '../action/Category';
-import { deepLink, fetchBasicApi, FlatListVertical, makeid, Type } from '../function/PTFunction';
+import { deepLink, fetchBasicApi, FlatListVertical, Loading, makeid, Type } from '../function/PTFunction';
 import style, { COLOR_BACKGROUND, MAIN_COLOR, width } from '../styles/style';
 import messaging from '@react-native-firebase/messaging';
 let page: any = 1;
 const MainCategory = (props: any) => {
     const { category } = props;
+    const navigaion: any = useNavigation()
     const dispatch = useDispatch()
     const ads = useSelector((state: any) => state.ads)
     const categories = useSelector((state: any) => state.categories)
@@ -38,7 +39,7 @@ const MainCategory = (props: any) => {
         getData();
         return unsubscribe;
     }, []);
-    const navigaion: any = useNavigation()
+
     const onNavigate = () => {
         messaging()
             .getInitialNotification()
@@ -51,11 +52,17 @@ const MainCategory = (props: any) => {
             })
             .catch(() => { });
     }
+    const onRefresh = () => {
+        setIsRefresh(true);
+        page = 1;
+        getData()
+    };
     const getData = async () => {
         return fetch('https://business-cambodia.com/api/blogs/' + category.id + `?page=${page}`)
             .then((response) => response.json())
             .then((json) => {
                 setContent(json.data.data);
+                setIsRefresh(false);
             })
             .catch((error) => {
                 console.error(error);
@@ -80,14 +87,7 @@ const MainCategory = (props: any) => {
             });
         }
     };
-    const onRefresh = () => {
-        setIsRefresh(true);
-        page = 1;
-        getData()
-        setTimeout(() => {
-            setIsRefresh(false)
-        }, 250);
-    };
+
     const _onScroll = () => {
         if (!hasScrolled) setHasScrolled(true);
     };
@@ -101,6 +101,7 @@ const MainCategory = (props: any) => {
             />
         );
     };
+
     const renderItem = ({ item, index }: any) => {
         return (
             <>
@@ -207,37 +208,35 @@ const MainCategory = (props: any) => {
         )
     }
     return (
-        <>
-            <View style={{ backgroundColor: COLOR_BACKGROUND, flex: 1 }}>
-                {content === null ? (
-                    <Wander
-                        color={MAIN_COLOR}
-                        size={35}
-                        style={{
-                            marginTop: 20, alignSelf: 'center'
-                        }}
-                    />
-                ) :
-                    <FlatListVertical
-                        data={content}
-                        renderItem={renderItem}
-                        ListFooterComponent={
-                            <>{isMoreLoading && page !== 0 && renderFooter()}</>
+        <View style={{ backgroundColor: COLOR_BACKGROUND, flex: 1 }}>
+            {content === null ? (
+                <Wander
+                    color={MAIN_COLOR}
+                    size={35}
+                    style={{
+                        marginTop: 20, alignSelf: 'center'
+                    }}
+                />
+            ) :
+                <FlatListVertical
+                    data={content}
+                    renderItem={renderItem}
+                    ListFooterComponent={
+                        <>{isMoreLoading && page !== 0 && renderFooter()}</>
+                    }
+                    refreshControl={
+                        <RefreshControl refreshing={isRefresh} onRefresh={onRefresh} />
+                    }
+                    onTouchMove={_onScroll}
+                    onEndReached={() => {
+                        if (!isMoreLoading) {
+                            getMore();
                         }
-                        refreshControl={
-                            <RefreshControl refreshing={isRefresh} onRefresh={onRefresh} />
-                        }
-                        onTouchMove={_onScroll}
-                        onEndReached={() => {
-                            if (!isMoreLoading) {
-                                getMore();
-                            }
-                        }}
-                    />
-                }
+                    }}
+                />
+            }
 
-            </View>
-        </>
+        </View>
     )
 }
 

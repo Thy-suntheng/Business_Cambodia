@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,6 +12,7 @@ import CategoryHeader from '../custom/CategoryHeader';
 import DetailScreen from '../components/DetailScreen';
 import Setting from '../components/Setting';
 import Search from '../custom/Search';
+import NoInternetScreen from '../components/NoInternetScreen';
 
 const Stack = createStackNavigator();
 const Drawer: any = createDrawerNavigator();
@@ -64,6 +65,7 @@ const Route = () => {
     }
     function MainTab() {
         const categories = useSelector((state: any) => state.categories)
+        // console.log(categories)
         return (
             <>
                 {headerBar()}
